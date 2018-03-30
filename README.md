@@ -7,9 +7,11 @@ if __name__ == '__main__':
     initial_a = 0
     initial_b = 0
     iterations = 1000
-    print('Before running the gradient descent algorithm...\na: ', initial_a, ', b: ', initial_b, ', error: ', measure_error(initial_a, initial_b, data))
+    print('Before running the gradient descent algorithm...\na: ', initial_a, ', b: ', initial_b, ',\
+    error: ', measure_error(initial_a, initial_b, data))
     a, b = change_coefficients(initial_a, initial_b, iterations)
-    print('After running the gradient descent algorithm...\na: ', initial_a, ', b: ', initial_b, ', error: ', measure_error(a, b, data))
+    print('After running the gradient descent algorithm...\na: ', initial_a, ', b: ', initial_b, ',\
+    error: ', measure_error(a, b, data))
 ```
 1. As You may or may not remember the equation of the line is:
 
