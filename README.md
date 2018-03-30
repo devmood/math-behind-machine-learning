@@ -13,13 +13,13 @@ if __name__ == '__main__':
 ```
 1. As You may or may not remember the equation of the line is:
 
-![equation](http://www.sciweavers.org/tex2img.php?eq=y%20%3D%20ax%20%2B%20b&bc=White&fc=Black&im=png&fs=12&ff=mathpazo&edit=0)
+![equation of the line][line]
 
 where - a stands for the slope of the line and b is the y-intercept (A.K.A. - bias).
 2. In order to find the best fit line for the data, we are looking for the optimal values of a and b, so that the line fits as many points as possible.
 3. To measure the error, we can use *Sum of Squared Errors*
 
-![equation](http://www.sciweavers.org/tex2img.php?eq=%20SSE%20%3D%20%5Csum%20%28y%20-%20%20%5Chat%7By%7D%20%29%5E2&bc=White&fc=Black&im=png&fs=12&ff=mathpazo&edit=0)
+![Sum of Squared Errors][sse]
 
 ```
 def measure_error(a, b, data):
@@ -43,9 +43,9 @@ def change_coefficients(starting_a, starting_b, iterations):
 5. The vlues of the coefficients a and b, for which the graph reaches the minimum are the desired coefficients of the best fit line, You are looking for. It means that distances between all the datapoints and the line will be the smallest.
 6. In order to find such coefficients, we need to minimize the function. By counting its partial derivative with respect to a and b seperately.
 
-![equation](http://www.sciweavers.org/tex2img.php?eq=%20%5Cfrac%7B%5Cpartial%5Ef%7D%7B%5Cpartial%20a%7D%20%3D%20%5Cfrac%7B1%7D%7Bn%7D%20%5Csum%20-2x%20%28y%20-%20%28ax%20%2B%20b%29%29&bc=White&fc=Black&im=png&fs=12&ff=mathpazo&edit=0)
+![derivative of the function with respect to coefficient a - slope][derivative_a]
 
-![equation](http://www.sciweavers.org/tex2img.php?eq=%20%5Cfrac%7B%5Cpartial%5Ef%7D%7B%5Cpartial%20b%7D%20%3D%20%5Cfrac%7B1%7D%7Bn%7D%20%5Csum%20-2%20%28y%20-%20%28ax%20%2B%20b%29%29&bc=White&fc=Black&im=png&fs=12&ff=mathpazo&edit=0)
+![derivative of the function with respect to the coefficient b - bias][derivative_b]
 
 ```
 def step_gradient(a_current, b_current, etha, data):
@@ -72,5 +72,12 @@ def step_gradient(a_current, b_current, etha, data):
 ##### **Created by devmood**
 
 LinkedIn: [Albert Millert](https://www.linkedin.com/in/albert-millert/)
+
 Instagram: [devmood](https://instagram.com/devmood/)
+
 Codepen: [devmood](https://codepen.io/devmood/)
+
+[line]: http://www.sciweavers.org/tex2img.php?eq=y%20%3D%20ax%20%2B%20b&bc=White&fc=Black&im=png&fs=12&ff=mathpazo&edit=0
+[sse]: http://www.sciweavers.org/tex2img.php?eq=%20SSE%20%3D%20%5Csum%20%28y%20-%20%20%5Chat%7By%7D%20%29%5E2&bc=White&fc=Black&im=png&fs=12&ff=mathpazo&edit=0
+[derivative_a]: http://www.sciweavers.org/tex2img.php?eq=%20%5Cfrac%7B%5Cpartial%5Ef%7D%7B%5Cpartial%20a%7D%20%3D%20%5Cfrac%7B1%7D%7Bn%7D%20%5Csum%20-2x%20%28y%20-%20%28ax%20%2B%20b%29%29&bc=White&fc=Black&im=png&fs=12&ff=mathpazo&edit=0
+[derivative_b]: http://www.sciweavers.org/tex2img.php?eq=%20%5Cfrac%7B%5Cpartial%5Ef%7D%7B%5Cpartial%20b%7D%20%3D%20%5Cfrac%7B1%7D%7Bn%7D%20%5Csum%20-2%20%28y%20-%20%28ax%20%2B%20b%29%29&bc=White&fc=Black&im=png&fs=12&ff=mathpazo&edit=0
