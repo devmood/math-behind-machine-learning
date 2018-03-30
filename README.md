@@ -1,4 +1,4 @@
-##### 1. Gradient Descent
+##### **1. Gradient Descent**
 ###### as the most common optimization technique in machine learning, which finds the local minima of a function
 0. The whole code is being run as follows:
 ```
