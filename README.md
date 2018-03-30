@@ -63,6 +63,56 @@ def step_gradient(a_current, b_current, etha, data):
     new_b = b_current - (etha * b_gradient)
     return new_a, new_b
 ```
+
+##### **2. Support Vector Machine**
+###### supervised machine learning algorithm, which can create a discriminative classifier - optimal hyperplane
+0. The w
+1. There are two classes, which can be plotted on the 2D graph; moreover - we can 'draw' a line separating both classes from each other - a decision boundry called a *hyperplane*. SVM helps create it.
+2. SVMs are used in classification (most often), regression (predicting another outcome in the series of measurments based on the previous ones), outllier prediction (tracking behaviour of some population or whatever else and looking for an anomaly), clustering, etc.
+3. SVM needs to learn the relationship between variables, creating the function which is then used to output prediction from some unknown input values.
+4. SVMs are already implemented insied sklearn modules, which You can use, however You will firs code it Yourself to learn how it works in the background.
+5. SVMs are best for small datasets (up to 1K rows) classification. Other algorithms, such as random forests or deep neural networks require more data; however, almost always come out with a very robust model. Picking the right alogrithm depends on the problem and the data itself.
+6. The way how SVMs work is by maximizing the margin between the line and the classes (points which are the closest to the decision boundry - *suport vectors* - they are vectors and they support the creation of the hyperplane). Why maximizing? Because if there's a datapoint which doesn't fall into any of the classes, then it will have the maximum likelyhood of falling into the side of the hyperplane where it should be.
+7. Hyperplane is the decision surface. For n dimenensions (i.e. number of features) a hyperplane is always n-1 dimensions. As You can imagine You can't really visualize more than 3 dimensions; however, for computers it's not a problem at all and in machine learning You'll often see that there's quite a few of the dimensions present in most of the problems.
+8. Every machine learning model is the function that we want to approximate, its coeffisients are its weights and they're being updated through the optimization process.
+9. Preparing the data, plotting it and plotting the naive hyperplane (dummy):
+
+```
+import numpy as np
+import matplotlib.pyplot as plt
+
+# input data of the form [X, Y, bias]
+def prepare_data():
+    X = np.array([[-2, 4], [4, 1], [1, 6], [2, 4], [6, 2]])
+    # output labels (either -1 or 1)
+    y = np.array([-1, -1, 1, 1, 1, 1])
+    for d, sample in enumerate(X):
+        if d < 2:
+            plt.scatter(sample[0], sample[1], marker='-')
+        else:
+            plt.scatter(sample[0], sample[1], marker='+')
+    # plotting a dummy hyperplane, just for sake of visualization
+    plt.plot([-2, 6], [6, 0.5])
+    return X, y
+
+if __name__ == '__main__':
+    X, y = prepare_data()
+```
+
+10. The next step is minimizing the loss/error function (c - the loss function)- *hinge loss* - used for maximum-margin classification in SVMs. We always want the result to be positive what denotes the subscript + at the end of the equation (meaning that if something is negative - the result should be 0):
+
+![hinge loss function][hlf]
+
+11. The objective function consists of the loss function (sum of the errors for all of the datapoints) and the first part of the equation, which is a regularizer term.
+
+![objective funtion with regularizer and hinge loss function][objf]
+
+12. In order to optimize the objective function You need to derive the function to get the gradients. Since there are two terms, You have to derive them seperetely using the rule of differentiation.
+
+![derivative of the objective function with respect to the regularizer][derivative_regularizer]
+
+![derivative of the objective function with respect to the hinge loss function][derivative_loss]
+
 #### TODO:
 - plot whatever possible
 - take screenshots and upload them to the README.md so that it looks way more professional
@@ -83,3 +133,7 @@ Codepen: [devmood](https://codepen.io/devmood/)
 [sse]: http://www.sciweavers.org/tex2img.php?eq=%20SSE%20%3D%20%5Csum%20%28y%20-%20%20%5Chat%7By%7D%20%29%5E2&bc=White&fc=Black&im=png&fs=12&ff=mathpazo&edit=0
 [derivative_a]: http://www.sciweavers.org/tex2img.php?eq=%20%5Cfrac%7B%5Cpartial%5Ef%7D%7B%5Cpartial%20a%7D%20%3D%20%5Cfrac%7B1%7D%7Bn%7D%20%5Csum%20-2x%20%28y%20-%20%28ax%20%2B%20b%29%29&bc=White&fc=Black&im=png&fs=12&ff=mathpazo&edit=0
 [derivative_b]: http://www.sciweavers.org/tex2img.php?eq=%20%5Cfrac%7B%5Cpartial%5Ef%7D%7B%5Cpartial%20b%7D%20%3D%20%5Cfrac%7B1%7D%7Bn%7D%20%5Csum%20-2%20%28y%20-%20%28ax%20%2B%20b%29%29&bc=White&fc=Black&im=png&fs=12&ff=mathpazo&edit=0
+[hlf]: http://www.sciweavers.org/tex2img.php?eq=c%28x%2C%20y%2C%20%20%5Chat%7By%7D%29%20%3D%20%281%20-%20y%20%2A%20%5Chat%7By%7D%29_%2B%20&bc=White&fc=Black&im=png&fs=12&ff=mathpazo&edit=0
+[objf]: http://www.sciweavers.org/tex2img.php?eq=min_w%20%5Clambda%20%5Cparallel%20w%20%5Cparallel%5E2%20%2B%20%20%5Csum_%7Bi%3D1%7D%5En%20%281%20-%20y_i%20%2A%20%5Cwidehat%7By_i%7D%29_%2B%20&bc=White&fc=Black&im=png&fs=12&ff=mathpazo&edit=0
+[derivative_regularizer]: http://www.sciweavers.org/tex2img.php?eq=%20%5Cfrac%7B%5Cpartial%7D%7B%5Cpartial%20w_k%7D%20%5Clambda%20%5Cparallel%20w%20%5Cparallel%5E2%20%3D%202%20%5Clambda%20w_k%20&bc=White&fc=Black&im=png&fs=12&ff=mathpazo&edit=0
+[derivative_loss]: http://www.sciweavers.org/tex2img.php?eq=%20%5Cfrac%7B%5Cpartial%7D%7B%5Cpartial%20w_k%7D%20%281%20-%20y_i%20%2A%20%5Cwidehat%7By_i%7D%29_%2B%20%3D%20%20%0A%5Cbegin%7Bcases%7D%0A%5C%280%2C%20%26%20y_i%20%2A%20%5Cwidehat%7By_i%7D%20%5Cgeq%201%20%5C%5C%0A%5C-y_i%20x_%7Bik%7D%2C%20%26%20else%0A%5Cend%7Bcases%7D&bc=White&fc=Black&im=png&fs=12&ff=mathpazo&edit=0
