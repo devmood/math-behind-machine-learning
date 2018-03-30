@@ -15,13 +15,13 @@ if __name__ == '__main__':
 ```
 1. As You may or may not remember the equation of the line is:
 
-![equation of the line][line]
+![equation of the line](http://bit.ly/2IhOcDS)
 
 where - a stands for the slope of the line and b is the y-intercept (A.K.A. - bias).
 2. In order to find the best fit line for the data, we are looking for the optimal values of a and b, so that the line fits as many points as possible.
 3. To measure the error, we can use *Sum of Squared Errors*
 
-![Sum of Squared Errors][sse]
+![Sum of Squared Errors](http://bit.ly/2pOC1Yw)
 
 ```
 def measure_error(a, b, data):
@@ -45,9 +45,9 @@ def change_coefficients(starting_a, starting_b, iterations):
 5. The vlues of the coefficients a and b, for which the graph reaches the minimum are the desired coefficients of the best fit line, You are looking for. It means that distances between all the datapoints and the line will be the smallest.
 6. In order to find such coefficients, we need to minimize the function. By counting its partial derivative with respect to a and b seperately.
 
-![derivative of the function with respect to coefficient a - slope][derivative_a]
+![derivative of the function with respect to coefficient a - slope](http://bit.ly/2pRA9y0)
 
-![derivative of the function with respect to the coefficient b - bias][derivative_b]
+![derivative of the function with respect to the coefficient b - bias](http://bit.ly/2IhK7zo)
 
 ```
 def step_gradient(a_current, b_current, etha, data):
@@ -101,22 +101,32 @@ if __name__ == '__main__':
 
 10. The next step is minimizing the loss/error function (c - the loss function)- *hinge loss* - used for maximum-margin classification in SVMs. We always want the result to be positive what denotes the subscript + at the end of the equation (meaning that if something is negative - the result should be 0):
 
-![hinge loss function][hlf]
-
+![hinge loss function](http://bit.ly/2pROI4M)
 11. The objective function consists of the loss function (sum of the errors for all of the datapoints) and the first part of the equation, which is a regularizer term.
 
-![objective funtion with regularizer and hinge loss function][objf]
+![objective funtion with regularizer and hinge loss function](http://bit.ly/2Ijw2RZ)
 
 12. In order to optimize the objective function You need to derive the function to get the gradients. Since there are two terms, You have to derive them seperetely using the rule of differentiation.
 
-![derivative of the objective function with respect to the regularizer][derivative_regularizer]
+![derivative of the objective function with respect to the regularizer](http://bit.ly/2pRkGhj)
 
-![derivative of the objective function with respect to the hinge loss function][derivative_loss]
+![derivative of the objective function with respect to the hinge loss function](http://bit.ly/2Ii0jRv)
+
+13. If regularizer is too high, the model will be overfit, if regularizer is too low, the model will be underfit. This is why You want it to be exactly at the right spot. If the sample is misclassified, the weight vector is being updated using the gradients of both terms, whereas when the sample is classified correctly, w is updated using only the gradient of the regularizer. Missclassification is when the loss function is lower than 1 (y * y-hat < 1).
+
+14. The update of the weight vector, when sample is misclassified (where eta is the learning rate):
+
+![weight vector update missclassified](http://bit.ly/2pQ97XQ)
+
+15. The update of the weight vector, when sample is classified correctly:
+
+![weight vector update classified](http://bit.ly/2pQn8os)
 
 #### TODO:
 - plot whatever possible
 - take screenshots and upload them to the README.md so that it looks way more professional
 - find some eye-catching graphic for the beggining that will be dissplayed in the whole series
+- retype all the equations and past short urls
 ---
 ##### License:
 -- MIT
@@ -128,12 +138,3 @@ LinkedIn: [Albert Millert](https://www.linkedin.com/in/albert-millert/)
 Instagram: [devmood](https://instagram.com/devmood/)
 
 Codepen: [devmood](https://codepen.io/devmood/)
-
-[line]: http://www.sciweavers.org/tex2img.php?eq=y%20%3D%20ax%20%2B%20b&bc=White&fc=Black&im=png&fs=12&ff=mathpazo&edit=0
-[sse]: http://www.sciweavers.org/tex2img.php?eq=%20SSE%20%3D%20%5Csum%20%28y%20-%20%20%5Chat%7By%7D%20%29%5E2&bc=White&fc=Black&im=png&fs=12&ff=mathpazo&edit=0
-[derivative_a]: http://www.sciweavers.org/tex2img.php?eq=%20%5Cfrac%7B%5Cpartial%5Ef%7D%7B%5Cpartial%20a%7D%20%3D%20%5Cfrac%7B1%7D%7Bn%7D%20%5Csum%20-2x%20%28y%20-%20%28ax%20%2B%20b%29%29&bc=White&fc=Black&im=png&fs=12&ff=mathpazo&edit=0
-[derivative_b]: http://www.sciweavers.org/tex2img.php?eq=%20%5Cfrac%7B%5Cpartial%5Ef%7D%7B%5Cpartial%20b%7D%20%3D%20%5Cfrac%7B1%7D%7Bn%7D%20%5Csum%20-2%20%28y%20-%20%28ax%20%2B%20b%29%29&bc=White&fc=Black&im=png&fs=12&ff=mathpazo&edit=0
-[hlf]: http://www.sciweavers.org/tex2img.php?eq=c%28x%2C%20y%2C%20%20%5Chat%7By%7D%29%20%3D%20%281%20-%20y%20%2A%20%5Chat%7By%7D%29_%2B%20&bc=White&fc=Black&im=png&fs=12&ff=mathpazo&edit=0
-[objf]: http://www.sciweavers.org/tex2img.php?eq=min_w%20%5Clambda%20%5Cparallel%20w%20%5Cparallel%5E2%20%2B%20%20%5Csum_%7Bi%3D1%7D%5En%20%281%20-%20y_i%20%2A%20%5Cwidehat%7By_i%7D%29_%2B%20&bc=White&fc=Black&im=png&fs=12&ff=mathpazo&edit=0
-[derivative_regularizer]: http://www.sciweavers.org/tex2img.php?eq=%20%5Cfrac%7B%5Cpartial%7D%7B%5Cpartial%20w_k%7D%20%5Clambda%20%5Cparallel%20w%20%5Cparallel%5E2%20%3D%202%20%5Clambda%20w_k%20&bc=White&fc=Black&im=png&fs=12&ff=mathpazo&edit=0
-[derivative_loss]: http://www.sciweavers.org/tex2img.php?eq=%20%5Cfrac%7B%5Cpartial%7D%7B%5Cpartial%20w_k%7D%20%281%20-%20y_i%20%2A%20%5Cwidehat%7By_i%7D%29_%2B%20%3D%20%20%0A%5Cbegin%7Bcases%7D%0A%5C%280%2C%20%26%20y_i%20%2A%20%5Cwidehat%7By_i%7D%20%5Cgeq%201%20%5C%5C%0A%5C-y_i%20x_%7Bik%7D%2C%20%26%20else%0A%5Cend%7Bcases%7D&bc=White&fc=Black&im=png&fs=12&ff=mathpazo&edit=0
