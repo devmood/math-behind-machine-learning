@@ -6,9 +6,9 @@ def step_gradient(a_current, b_current, etha, data):
     a_gradient = 0
     b_gradient = 0
     n = float(len(data))
-    for i in range(0, len(data)):
-        x = data[i, 0]
-        y = data[i, 1]
+    for sample in data:
+        x = sample[0]
+        y = sample[1]
         a_gradient += -(2/n) * (y - ((b_current * x) + a_current))
         b_gradient += -(2/n) * x * (y - ((b_current * x) + a_current))
     new_a = a_current - (etha * a_gradient)
@@ -26,22 +26,21 @@ def change_coefficients(starting_a, starting_b, iterations):
 
 def measure_error(a, b, data):
     error = 0
-    for i in range(0, len(data)):
-        x = data[i, 0]
-        y = data[i, 1]
-        error += (y - (a*x + b)) ** 2
-        # or error += (y - predict()) ** 2
+    for sample in data:
+        x = sample[0]
+        y = sample[1]
+        error += (y - (a * x + b)) ** 2
     return error / float(len(data))
 
 
 if __name__ == '__main__':
-    data = [[1, 2], [3, 4], [6, 7]] # find it out later how to write it in here
+    data = [[1, 2], [3, 4], [6, 7]]
     initial_a = 0
     initial_b = 0
     iterations = 1000
-    print('Before running the gradient descent algorithm...\na: ', initial_a, ', b: ', initial_b, ',\
-    error: ', measure_error(initial_a, initial_b, data))
+    print('Before running the gradient descent algorithm...\na: ',\
+          initial_a, ', b: ', initial_b, ', error: ',\
+          measure_error(initial_a, initial_b, data))
     a, b = change_coefficients(initial_a, initial_b, iterations)
-    print('After running the gradient descent algorithm...\na: ', initial_a, ', b: ', initial_b, ',\
-    error: ', measure_error(a, b, data))
-    
+    print('After running the gradient descent algorithm...\na: ',\
+          a, ', b: ', b, ', error: ', measure_error(a, b, data))
